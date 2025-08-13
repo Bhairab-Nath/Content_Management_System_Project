@@ -1,7 +1,10 @@
 const express = require('express')
 const {blogs} = require('./model/index')
 const {users} = require('./model/index')
+const {storage, multer} =require('./middleware/multerConfig.js')
 const app = express()
+
+const upload = multer({storage: storage})
 
 const port = 3000
 
@@ -20,9 +23,9 @@ app.get("/addblogs",(req,res)=>{
     res.render("addBlogs")
 })
 
-app.post("/addblogs",async(req,res)=>{
+app.post("/addblogs",upload.single("image"),async(req,res)=>{
     
-    // console.log(req.file)
+    console.log(req.file)
     // const title = req.body.title
     // const subTitle = req.body.subTitle
     // const description = req.body.description
