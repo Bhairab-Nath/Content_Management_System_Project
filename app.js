@@ -15,7 +15,7 @@ app.use(express.json())
 require('./model/index')
 
 app.get("/",async (req,res)=>{
-    const blogsData = await blogs.findAll()   //returns an array
+    const blogsData = await blogs.findAll()   //returns  array
     res.render('home',{blogs: blogsData})
 })
 
