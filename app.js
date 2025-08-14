@@ -2,6 +2,7 @@ const express = require('express')
 const {blogs} = require('./model/index')
 const {users} = require('./model/index')
 const {storage, multer} =require('./middleware/multerConfig.js')
+require("dotenv").config()
 const app = express()
 
 const upload = multer({storage: storage})
@@ -36,7 +37,7 @@ app.post("/addblogs",upload.single("image"),async(req,res)=>{
         title: title,
         subTitle: subTitle,
         description: description,
-        image: "http://localhost:3000/" + req.file.filename
+        image: process.env.backendUrl + req.file.filename
     })
     res.redirect("/")
 })
