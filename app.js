@@ -104,6 +104,7 @@ app.post("/update/:id",async(req,res)=>{
 
 // access to uploads 
 app.use(express.static("./uploads/"))
+app.use(express.static("./public/styles/")) // External CSS allow
 
 app.listen(port,()=>{
     console.log(`Node.js project has started at port ${port}..`)
