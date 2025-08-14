@@ -35,7 +35,8 @@ app.post("/addblogs",upload.single("image"),async(req,res)=>{
     await blogs.create({
         title: title,
         subTitle: subTitle,
-        description: description
+        description: description,
+        image: "http://localhost:3000/" + req.file.filename
     })
     res.redirect("/")
 })
@@ -99,6 +100,9 @@ app.post("/update/:id",async(req,res)=>{
     res.redirect("/blog/" + id)
 })
 
+
+// access to uploads 
+app.use(express.static("./uploads/"))
 
 app.listen(port,()=>{
     console.log(`Node.js project has started at port ${port}..`)
