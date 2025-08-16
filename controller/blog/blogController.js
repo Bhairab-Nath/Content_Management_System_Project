@@ -28,13 +28,6 @@ exports.addBlog = async(req,res)=>{
     res.redirect("/")
 }
 
-exports.renderRegister = (req,res)=>{
-    res.render("register")
-}
-
-exports.register = (req,res)=>{
-    console.log(req.body)
-}
 
 
 exports.renderSingleBlog = async (req,res)=>{

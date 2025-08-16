@@ -1,12 +1,11 @@
 const express = require('express')
 const {users} = require('./model/index')
 const blogRoute = require("./routes/blogRoute")
-
+const userRoute = require('./routes/userRoute')
 
 require("dotenv").config()
 const app = express()
 
-// const upload = multer({storage: storage})
 
 const port = 3000
 
@@ -16,31 +15,12 @@ app.use(express.json())
 
 require('./model/index')
 
-// app.get("/",renderHome)
-
-// app.get("/addblogs",renderAddBlog)
-
-// app.post("/addblogs",upload.single("image"),addBlog)
-
-// app.get("/register",renderRegister)
-
-// app.post("/register",register)
-
-//single blog , Note : sign handles for all after /blog/
-// app.get("/blog/:id",renderSingleBlog)
-
-// app.get("/delete/:id",deleteBlog)
-
-// app.get("/update/:id",renderUpdateBlog)
-
-// app.post("/update/:id",updateBlog)
-
-
 // access to uploads 
 app.use(express.static("./uploads/"))
 app.use(express.static("./public/styles/")) // External CSS allow
 
 app.use("",blogRoute)
+app.use("",userRoute)
 
 app.listen(port,()=>{
     console.log(`Node.js project has started at port ${port}..`)
