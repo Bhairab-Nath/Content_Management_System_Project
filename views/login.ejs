@@ -4,20 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Now</title>
-    <link rel="stylesheet" href="/register.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login.css">
 </head>
 
 <body>
     <%- include('nav.ejs') %>
 <div class="form-box">
     <div class="form-container">
-        <h2>Register</h2>
-        <form action="/register" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            </div>
+        <h2>Login</h2>
+        <form action="/login" method="post">
 
             <div class="form-group">
                 <label for="email">Email</label>
@@ -29,9 +25,9 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
 
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
         </form>
-        <p class="login-link">Already have an account? <a href="/login">Login</a></p>
+        <p class="login-link">Do not have an account? <a href="/register">Register</a></p>
     </div>
 </div>
 <%- include('footer.ejs') %>
