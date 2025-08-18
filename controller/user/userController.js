@@ -1,5 +1,6 @@
 const { users } = require("../../model")
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 exports.renderRegister = (req,res)=>{
     res.render("register")
@@ -48,6 +49,9 @@ exports.loginForm = async (req,res)=>{
     }else{
         const isMatched = bcrypt.compareSync(password, user[0].password)
         if(isMatched){
+            //generate token
+            var token = jwt.sign({id: user[0].id}, "thisissecretkeynottoshare", {expiresIn: '1d'})
+            res.cookie('token', token)
             res.send("Login Successfully")
         }else{
             res.send("Email or Password is invalid")
