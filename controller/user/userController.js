@@ -9,7 +9,7 @@ exports.renderRegister = (req,res)=>{
 exports.register = async(req,res)=>{
     // console.log(req.body)
     const {username, email, password } = req.body
-    const user = users.findAll({
+    const user = await users.findAll({
         where: {
             email:email
         }
@@ -50,7 +50,7 @@ exports.loginForm = async (req,res)=>{
         const isMatched = bcrypt.compareSync(password, user[0].password)
         if(isMatched){
             //generate token
-            var token = jwt.sign({id: user[0].id}, "thisissecretkeynottoshare", {expiresIn: '1d'})
+            var token = jwt.sign({id: user[0].id}, process.env.secretKey , {expiresIn: '1d'})
             res.cookie('token', token)
             res.send("Login Successfully")
         }else{

@@ -2,6 +2,7 @@ const express = require('express')
 const {users} = require('./model/index')
 const blogRoute = require("./routes/blogRoute")
 const userRoute = require('./routes/userRoute')
+const cookieParser = require('cookie-parser')
 
 require("dotenv").config()
 const app = express()
@@ -12,7 +13,7 @@ const port = 3000
 app.set("view engine","ejs")
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-
+app.use(cookieParser())
 require('./model/index')
 
 // access to uploads 
