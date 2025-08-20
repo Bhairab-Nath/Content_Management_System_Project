@@ -5,7 +5,12 @@
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/addblogs">AddBlogs</a>
-      <a href="#">Services</a>
-      <a href="/register">Register</a>
+      <% if(currentUser){ %>
+      <a href="/logout">Logout</a>
+      
+      <% } else{ %>
+
+      <a href="/login">Login</a>
+      <% } %>
     </div>
   </div>

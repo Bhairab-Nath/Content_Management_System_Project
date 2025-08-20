@@ -1,7 +1,12 @@
-const { blogs } = require("../../model")
+const { blogs, users } = require("../../model")
 
 exports.renderHome = async (req,res)=>{
-    const blogsData = await blogs.findAll()   //returns  array
+    const blogsData = await blogs.findAll({
+        include: {
+            model : users
+        }
+    })   //returns  array
+    // console.log(blogsData)
     res.render('home',{blogs: blogsData})
     
 }
@@ -33,16 +38,19 @@ exports.addBlog = async(req,res)=>{
 
 exports.renderSingleBlog = async (req,res)=>{
     const id = req.params.id
-    const foundBlog = await blogs.findByPk(id)  //returns object
-    res.render("singleBlog",{blog : foundBlog})
+    // const foundBlog = await blogs.findByPk(id)  //returns object
+    // res.render("singleBlog",{blog : foundBlog})
 
-    //Another method
-    // const foundBlog = await blogs.findAll({
-    //      where : {
-    //       id : id
-    //     }
-    // })  //returns array
-    //  res.render("singleBlog",{blog : foundBlog[0]})
+    // Another method
+    const foundBlog = await blogs.findAll({
+         where : {
+          id : id
+        },
+         include: {
+            model : users
+        }
+    })  //returns array
+     res.render("singleBlog",{blog : foundBlog[0]})
 }
 
 exports.deleteBlog = async (req,res)=>{

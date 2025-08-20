@@ -52,11 +52,17 @@ exports.loginForm = async (req,res)=>{
             //generate token
             var token = jwt.sign({id: user[0].id}, process.env.secretKey , {expiresIn: '1d'})
             res.cookie('token', token)
-            res.send("Login Successfully")
+            res.redirect('/')
         }else{
             res.send("Email or Password is invalid")
         }
     }
 
+
+}
+
+exports.logoutUser = (req,res)=>{
+    res.clearCookie('token')
+    res.redirect('/login')
 
 }

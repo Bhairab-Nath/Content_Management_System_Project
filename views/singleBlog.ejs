@@ -17,8 +17,11 @@
       <h3><%- blog.title %></h3>
       <h4><%- blog.subTitle %></h4>
       <p><%- blog.description %></p>
+      <p>Author: <%- blog.user.username %></p>
+      <% if(currentUser){ %>
       <button class="btn del"><a href="/delete/<%- blog.id %>">Delete</a></button>
       <button class="btn up"><a href="/update/<%- blog.id %>">Update</a></button>
+      <% } %>
     </div>
   </div>
 
