@@ -84,6 +84,7 @@
 
         button {
             width: 100%;
+            margin-top: 15px;
             padding: 0.7rem;
             background: #007BFF;
             color: white;
@@ -98,17 +99,25 @@
             background: #0056b3;
         }
 
-        .login-link {
+
+        .link {
             text-align: center;
             margin-top: 1rem;
             font-size: 0.9rem;
         }
 
-        .login-link a {
+
+        .link a {
             color: #007BFF;
             text-decoration: none;
         }
 
-        .login-link a:hover {
+        .link a:hover {
             text-decoration: underline;
+        }
+
+        .forget{
+            text-align: left;
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }

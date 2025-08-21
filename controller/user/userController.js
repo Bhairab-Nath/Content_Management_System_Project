@@ -1,6 +1,7 @@
 const { users } = require("../../model")
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const sendEmail = require("../../services/sendEmail")
 
 exports.renderRegister = (req,res)=>{
     res.render("register")
@@ -64,5 +65,28 @@ exports.loginForm = async (req,res)=>{
 exports.logoutUser = (req,res)=>{
     res.clearCookie('token')
     res.redirect('/login')
+
+}
+
+exports.forgetPassword = (req,res)=>{
+    res.render('forgetPassword')
+}
+
+exports.forgetPasswordHandle = async (req,res)=>{
+    const {email} = req.body
+    if(!email){
+        return res.send("Please provide email!")
+    }
+
+    //send email
+    const data = {
+        email: email,
+        subject: "Your Forget Password OTP",
+        text: "Your OTP is: " + 4532
+
+    }
+
+    await sendEmail(data)
+    res.send("Otp sent successfully.")
 
 }
