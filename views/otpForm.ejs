@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Form</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+
+<body>
+    <%- include('nav.ejs') %>
+<div class="form-box">
+    <div class="form-container">
+
+        <form action="/verifyOtp" method="post">
+
+            <div class="form-group">
+                <label for="otp">OTP</label>
+                <input type="text" id="otp" name="otp" placeholder="Enter the OTP" required>
+            </div>
+
+        
+            <button type="submit">Verify OTP</button>
+        </form>
+    </div>
+</div>
+<%- include('footer.ejs') %>
+</body>
+
+</html>
