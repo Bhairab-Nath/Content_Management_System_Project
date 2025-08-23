@@ -98,19 +98,22 @@ exports.forgetPasswordHandle = async (req, res) => {
     await sendEmail(data)
     userData[0].otp = otp
     await userData[0].save()
-    res.redirect('/otpForm')
+    res.redirect('/otpForm?email=' + email)
 
 }
 
 exports.renderOtpForm = (req, res) => {
-    res.render('otpForm')
+    const email = req.query.email
+    res.render('otpForm', {email : email})
 }
 
 exports.verifyOtp = async (req, res) => {
     const { otp } = req.body
+    const email = req.params.id
     const data = await users.findAll({
         where: {
-            otp: otp
+            otp: otp,
+            email: email
         }
     })
 

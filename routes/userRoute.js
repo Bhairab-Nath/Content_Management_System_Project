@@ -8,6 +8,6 @@ router.route('/login').get(renderLoginForm).post(loginForm)
 router.route('/logout').get(logoutUser)
 router.route('/forgetPassword').get(forgetPassword).post(forgetPasswordHandle)
 router.route('/otpForm').get(renderOtpForm)
-router.route('/verifyOtp').post(verifyOtp)
+router.route('/verifyOtp/:id').post(verifyOtp)
 
 module.exports = router
