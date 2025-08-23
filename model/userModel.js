@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       otp: {
         type: DataTypes.STRING
-      } 
+      },
+      otpGeneratedTime: {
+        type: DataTypes.STRING
+      }
     
     });
     return User;
