@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken')
 const sendEmail = require("../../services/sendEmail")
 
 exports.renderRegister = (req, res) => {
-    res.render("register")
+    const [error] = req.flash('error') 
+    res.render("register",{error})
 }
 
 exports.register = async (req, res) => {
@@ -17,7 +18,9 @@ exports.register = async (req, res) => {
     })
 
     if (user.length != 0) {
-        return res.send("Email already Registered! Login")
+        req.flash('error','Email already Registered! Login')
+        res.redirect('/register')
+        return
     }
 
     await users.create({
@@ -25,18 +28,25 @@ exports.register = async (req, res) => {
         email: email,
         password: bcrypt.hashSync(password, 12) //12 is salt
     })
+
+    req.flash('success','Registered Successfully')
     res.redirect('/login')
 }
 
 exports.renderLoginForm = (req, res) => {
-    res.render('login')
+    const [error] = req.flash('error')
+    const [error2] = req.flash('error2')
+    const [success] = req.flash('success')
+    res.render('login',{error,error2,success})
 }
 
 exports.loginForm = async (req, res) => {
     // console.log(req.body)
     const { email, password } = req.body
     if (!email || !password) {
-        return res.send("Please fill both email and password!")
+        req.flash('error2','Please fill both email and password!')
+        res.redirect('/login')
+        return
     }
 
     const user = await users.findAll({
@@ -55,7 +65,8 @@ exports.loginForm = async (req, res) => {
             res.cookie('token', token)
             res.redirect('/')
         } else {
-            res.send("Email or Password is invalid")
+            req.flash('error', 'Email or Password is invalid')
+            res.redirect('/login')
         }
     }
 
@@ -69,7 +80,8 @@ exports.logoutUser = (req, res) => {
 }
 
 exports.forgetPassword = (req, res) => {
-    res.render('forgetPassword')
+    const [error] = req.flash('error')
+    res.render('forgetPassword',{error})
 }
 
 exports.forgetPasswordHandle = async (req, res) => {
@@ -84,7 +96,10 @@ exports.forgetPasswordHandle = async (req, res) => {
     })
 
     if (userData.length == 0) {
-        return res.send("No user with that email")
+        // return res.send("No user with that email")
+        req.flash('error', 'No user with that email')
+        res.redirect('/forgetPassword')
+        return
     }
     const otp = Math.floor(100000 + Math.random() * 900000);
     //send email
@@ -105,7 +120,9 @@ exports.forgetPasswordHandle = async (req, res) => {
 
 exports.renderOtpForm = (req, res) => {
     const email = req.query.email
-    res.render('otpForm', { email: email })
+    const [error] = req.flash('error')
+    const [error2] = req.flash('error2')
+    res.render('otpForm', { email: email, error: error, error2: error2 })
 }
 
 exports.verifyOtp = async (req, res) => {
@@ -119,7 +136,11 @@ exports.verifyOtp = async (req, res) => {
     })
 
     if (data.length == 0) {
-        return res.send("Invalid otp")
+    
+        req.flash('error','Invalid otp')
+        res.redirect('/otpForm?email=' + email)
+        return
+
     }
 
     const currentTime = Date.now()
@@ -128,7 +149,10 @@ exports.verifyOtp = async (req, res) => {
         res.redirect(`/resetPassword?email=${email}&otp=${otp}`)
     }
     else {
-        res.send("OTP has expired")
+        
+        req.flash('error2','OTP has expired')
+        res.redirect('/otpForm?email=' + email)
+
     }
 
 
@@ -137,10 +161,11 @@ exports.verifyOtp = async (req, res) => {
 
 exports.renderResetPassword = (req, res) => {
     const { email, otp } = req.query
+    const [error] = req.flash('error')
     if (!email || !otp) {
         return res.send("Please Provide email and otp")
     }
-    res.render('resetPassword', { email: email, otp: otp })
+    res.render('resetPassword', { email: email, otp: otp, error: error })
 }
 
 exports.handleResetPassword = async (req, res) => {
@@ -174,7 +199,8 @@ exports.handleResetPassword = async (req, res) => {
         res.redirect('/login')
     }
     else {
-        res.send("OTP has expired")
+        req.flash('error','OTP has expired')
+        res.redirect(`/resetPassword?email=${email}&otp=${otp}`)
     }
 
 

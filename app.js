@@ -3,10 +3,20 @@ const {users} = require('./model/index')
 const blogRoute = require("./routes/blogRoute")
 const userRoute = require('./routes/userRoute')
 const cookieParser = require('cookie-parser')
+const session = require("express-session")
+const flash = require("connect-flash")
+
 
 require("dotenv").config()
 const app = express()
 
+app.use(session({
+    secret: process.env.sessionSecret,
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(flash())
 
 const port = 3000
 

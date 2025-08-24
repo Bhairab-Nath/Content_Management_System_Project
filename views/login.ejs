@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="flash.css">
 </head>
 
 <body>
@@ -14,6 +15,12 @@
     <div class="form-container">
         <h2>Login</h2>
         <form action="/login" method="post">
+           
+            <% if(success){ %>
+            <div class="flash flash-success">
+                <%-success%>
+            </div>
+            <% } %>
 
             <div class="form-group">
                 <label for="email">Email</label>
@@ -24,6 +31,17 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
+            <% if(error2){ %>
+            <div class="flash flash-error">
+                <%-error2%>
+            </div>
+            <% } %>
+            
+           <% if(error){ %>
+            <div class="flash flash-error">
+                <%-error%>
+            </div>
+            <% } %>
             <p class="link forget"><a href="/forgetPassword">Forget Password ?</a></p>
             <button type="submit">Login</button>
         </form>
