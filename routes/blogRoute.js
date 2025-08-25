@@ -1,4 +1,4 @@
-const { renderHome, renderAddBlog, addBlog, renderRegister, renderSingleBlog, register, deleteBlog, renderUpdateBlog, updateBlog } = require("../controller/blog/blogController")
+const { renderHome, renderAddBlog, addBlog, renderRegister, renderSingleBlog, register, deleteBlog, renderUpdateBlog, updateBlog} = require("../controller/blog/blogController")
 const { isAuthenticated } = require("../middleware/isAuthenticated.js")
 const {storage, multer} =require('../middleware/multerConfig.js')
 const catchError = require("../services/catchError.js")

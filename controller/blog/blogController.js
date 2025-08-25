@@ -1,4 +1,4 @@
-const { blogs, users } = require("../../model")
+const { blogs, users, comments } = require("../../model")
 
 exports.renderHome = async (req,res)=>{
     const blogsData = await blogs.findAll({
@@ -50,7 +50,16 @@ exports.renderSingleBlog = async (req,res)=>{
             model : users
         }
     })  //returns array
-     res.render("singleBlog",{blog : foundBlog[0]})
+
+    const commentData = await comments.findAll({
+        where: {
+            blogId: id
+        },
+        include: {
+            model: users
+        }
+    })
+     res.render("singleBlog",{blog : foundBlog[0], comments: commentData})
 }
 
 exports.deleteBlog = async (req,res)=>{
@@ -88,4 +97,20 @@ exports.updateBlog = async(req,res)=>{
         }
     })
     res.redirect("/blog/" + id)
+}
+
+exports.addComment = async (req,res)=>{
+    const {userId} = req
+    const {commentMessage, blogId} = req.body
+    if(!commentMessage || !blogId || !userId){
+        return res.send('No comment message, blogId and userId')
+    }
+
+    await comments.create({
+        commentMessage,
+        userId,
+        blogId
+    })
+    res.redirect('/blog/' + blogId)
+    
 }

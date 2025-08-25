@@ -34,10 +34,18 @@ db.sequelize = sequelize;
 // importing model files 
 db.blogs = require("./blogModel.js")(sequelize, DataTypes);
 db.users = require("./userModel.js")(sequelize, DataTypes);
+db.comments = require("./commentModel.js")(sequelize, DataTypes);
 
+
+//relationships
 db.users.hasMany(db.blogs)
 db.blogs.belongsTo(db.users)
 
+db.users.hasMany(db.comments)
+db.comments.belongsTo(db.users)
+
+db.blogs.hasMany(db.comments)
+db.comments.belongsTo(db.blogs)
 
 //migration ek palta force: true ani false garne
 db.sequelize.sync({ force: false}).then(() => {

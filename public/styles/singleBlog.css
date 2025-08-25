@@ -28,6 +28,12 @@
       text-decoration: underline;
     }
 
+
+
+    .main{
+      display: flex;
+      gap: 20px;
+    }
     /* Cards Container */
     .cards-container {
       display: flex;
@@ -88,4 +94,45 @@
 
     .card img {
         width: 100%;
+    }
+
+    .form-container{
+      /* margin: 10px; */
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      
+    }
+
+    .comment-btn{
+      margin-top:5px;
+      padding: 8px 10px;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+    }
+
+    textarea{
+      margin-top: 5px;
+    }
+
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li{
+      margin-top: 10px;
+    }
+
+    .comments{
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      width: 300px;
+      height: 50%;
+      margin-top:40px;
     }

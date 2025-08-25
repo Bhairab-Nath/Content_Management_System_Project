@@ -2,6 +2,7 @@ const express = require('express')
 const {users} = require('./model/index')
 const blogRoute = require("./routes/blogRoute")
 const userRoute = require('./routes/userRoute')
+const commentRoute = require('./routes/commentRoute')
 const cookieParser = require('cookie-parser')
 const session = require("express-session")
 const flash = require("connect-flash")
@@ -37,6 +38,7 @@ app.use((req,res,next)=>{
 
 app.use("",blogRoute)
 app.use("",userRoute)
+app.use("",commentRoute)
 
 
 app.listen(port,()=>{

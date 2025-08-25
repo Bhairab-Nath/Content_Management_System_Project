@@ -1,31 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>blog</title>
   <link rel="stylesheet" href="/singleBlog.css">
 </head>
+
 <body>
 
-   <%- include('nav.ejs') %>
-  
-  <div class="cards-container">
-   
-    <div class="card">
-      <img src="<%- blog.image %>" alt="image">
-      <h3><%- blog.title %></h3>
-      <h4><%- blog.subTitle %></h4>
-      <p><%- blog.description %></p>
-      <p>Author: <%- blog.user.username %></p>
-      <% if(currentUser){ %>
-      <button class="btn del"><a href="/delete/<%- blog.id %>">Delete</a></button>
-      <button class="btn up"><a href="/update/<%- blog.id %>">Update</a></button>
-      <% } %>
-    </div>
-  </div>
+  <%- include('nav.ejs') %>
+    <div class="main">
+      <div class="cards-container">
 
-<%- include('footer.ejs') %>
+        <div class="card">
+          <img src="<%- blog.image %>" alt="image">
+          <h3><%- blog.title %></h3>
+          <h4><%- blog.subTitle %></h4>
+          <p><%- blog.description %></p>
+          <p>Author: <%- blog.user.username %></p>
+          <% if(currentUser){ %>
+            <button class="btn del"><a href="/delete/<%- blog.id %>">Delete</a></button>
+            <button class="btn up"><a href="/update/<%- blog.id %>">Update</a></button>
+            <% } %>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <form action="/comment" method="post">
+
+          <label for="comment">Comment here:</label><br>
+          <textarea id="comment" name="commentMessage" rows="8" cols="50" placeholder="Comment here..">
+      </textarea><br>
+          <input type="hidden" name="blogId" value="<%- blog.id %>">
+          <button type="submit" class="comment-btn">Comment</button>
+        </form>
+
+      </div>
+      <div class="comments">
+        <h2>Audience Views</h2>
+        <ul>
+          <% comments.forEach((comment)=>{ %>
+            <li><b>Username: <%- comment.user.username %></b><br><br>
+              <%- comment.commentMessage %>
+            </li>
+            <hr>
+            <% }) %>
+        </ul>
+      </div>
+    </div>
+    <%- include('footer.ejs') %>
 
 </body>
+
 </html>
